@@ -3,6 +3,7 @@ const errorMessages = {
   notFound: "Endpoint not found",
   ping: "🏓 Pong",
   wrongCredentials: "Wrong credentials",
+  unauthorized: "Usuario no autorizado",
 };
 
 export default errorMessages;

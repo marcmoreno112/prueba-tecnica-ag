@@ -10,9 +10,19 @@ export const createUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { username, password, rol } = req.body;
+  const { username, password, rol, loggedUsername } = req.body;
 
   try {
+    const existingLoggedUser = await User.findOne({ username: loggedUsername });
+
+    if (!existingLoggedUser) {
+      const error = new CustomError(errorMessages.general, 500);
+      next(error);
+    } else if (existingLoggedUser.rol !== "admin") {
+      const error = new CustomError(errorMessages.unauthorized, 401);
+      next(error);
+    }
+
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       const error = new CustomError(errorMessages.general, 409);

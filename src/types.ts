@@ -12,6 +12,10 @@ export type DbUser = {
   state: "active" | "being deleted";
 } & UserCredentials;
 
+export type CreateUser = Omit<DbUser, "state"> & {
+  loggedUsername: string;
+};
+
 export type UserCredentialsRequest = Request<
   Record<string, unknown>,
   Record<string, unknown>,
@@ -21,7 +25,7 @@ export type UserCredentialsRequest = Request<
 export type CreateUserRequest = Request<
   Record<string, unknown>,
   Record<string, unknown>,
-  Omit<DbUser, "state">
+  CreateUser
 >;
 
 export type UserDataStructure = {

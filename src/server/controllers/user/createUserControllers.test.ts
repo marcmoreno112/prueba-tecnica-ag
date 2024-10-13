@@ -3,8 +3,8 @@ import { Types } from "mongoose";
 import {
   type UserDataStructure,
   type CreateUserRequest,
-  type DbUser,
-} from "../../../types";
+  type CreateUser,
+} from "../../../types.js";
 import errorMessages from "../../utils/errorMessages";
 import { createUser } from "./createUserController";
 import User from "../../../database/models/User";
@@ -24,10 +24,11 @@ describe("Given a createUser controller", () => {
 
   describe("When it receives a request with a new user", () => {
     test("Then it should respond with a 200 status and the username", async () => {
-      const newUser: Omit<DbUser, "state"> = {
+      const newUser: CreateUser = {
         username: "newUser",
         password: "admin",
         rol: "admin",
+        loggedUsername: "admin",
       };
 
       User.findOne = jest.fn().mockResolvedValue(null);
@@ -59,10 +60,11 @@ describe("Given a createUser controller", () => {
   });
   describe("When it receives a request with invalid credentials", () => {
     test(`Then it should call the next function with an error with status code 409 and message ${errorMessages.general}`, async () => {
-      const inValidUser: Omit<DbUser, "state"> = {
+      const inValidUser: CreateUser = {
         username: "admin",
         password: "cracker",
         rol: "admin",
+        loggedUsername: "admin",
       };
 
       User.findOne = jest.fn().mockResolvedValue(inValidUser);

@@ -1,5 +1,5 @@
 import { Joi } from "express-validation";
-import { type DbUser, type UserCredentials } from "../types";
+import { type CreateUser, type UserCredentials } from "../types";
 
 export const loginUserSchema = {
   body: Joi.object<UserCredentials>({
@@ -9,9 +9,10 @@ export const loginUserSchema = {
 };
 
 export const createUserSchema = {
-  body: Joi.object<Omit<DbUser, "state">>({
+  body: Joi.object<CreateUser>({
     username: Joi.string().required(),
     password: Joi.string().required(),
     rol: Joi.string().valid("user", "admin").required(),
+    loggedUsername: Joi.string().required(),
   }),
 };
