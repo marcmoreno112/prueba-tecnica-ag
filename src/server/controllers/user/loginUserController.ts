@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { type NextFunction, type Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
-import { type UserCredentialsRequest } from "../../../types";
+import { type UserCredentialsRequest } from "../../../types.js";
 import CustomError from "../../CustomError/CustomError.js";
 import User from "../../../database/models/User.js";
 import errorMessages from "../../utils/errorMessages.js";
