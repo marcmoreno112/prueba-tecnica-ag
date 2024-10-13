@@ -26,7 +26,7 @@ export type CreateUserRequest = Request<
 
 export type UserDataStructure = {
   _id: string;
-} & UserCredentials;
+} & DbUser;
 
 export type UserData = {
   _id: Types.ObjectId;

@@ -24,7 +24,7 @@ describe("Given a loginUser controller", () => {
 
   const next = jest.fn();
 
-  describe("When it receives a request with valid user with username admin and password admin", () => {
+  describe("When it receives a request with a valid user with username admin and password admin", () => {
     test("Then it should respond with a 200 status and a token", async () => {
       const validUser: UserCredentials = {
         username: "admin",
@@ -38,6 +38,8 @@ describe("Given a loginUser controller", () => {
         username: validUser.username,
         password:
           "$2y$10$oIlXdXUt5rwSsxm95Sxg/uHPP77viYVgQjWbVc6nH0YbewkmkBepS",
+        rol: "admin",
+        state: "active",
       };
 
       user.findOne = jest.fn().mockReturnValue({
