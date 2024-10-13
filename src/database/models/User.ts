@@ -15,11 +15,13 @@ const userSchema = new Schema({
   rol: {
     type: String,
     required: true,
+    enum: ["admin", "user"],
   },
 
   state: {
     type: String,
     required: true,
+    enum: ["active", "being deleted"],
   },
 });
 

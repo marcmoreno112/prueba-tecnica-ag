@@ -16,7 +16,11 @@ export const loginUser = async (
   try {
     const user = await User.findOne({ username }).exec();
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (
+      !user ||
+      !(await bcrypt.compare(password, user.password)) ||
+      user.state === "being deleted"
+    ) {
       const customMessage = errorMessages.wrongCredentials;
 
       const customStatus = 401;

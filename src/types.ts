@@ -24,7 +24,7 @@ export type UserDataStructure = {
 
 export type UserData = {
   _id: Types.ObjectId;
-} & UserCredentials;
+} & DbUser;
 
 export type CustomRequest = {
   userId: string;
