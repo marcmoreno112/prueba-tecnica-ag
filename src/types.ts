@@ -18,6 +18,12 @@ export type UserCredentialsRequest = Request<
   UserCredentials
 >;
 
+export type CreateUserRequest = Request<
+  Record<string, unknown>,
+  Record<string, unknown>,
+  Omit<DbUser, "state">
+>;
+
 export type UserDataStructure = {
   _id: string;
 } & UserCredentials;

@@ -7,7 +7,7 @@ import {
   type UserCredentials,
   type UserCredentialsRequest,
 } from "../../../types";
-import { loginUser } from "./userControllers";
+import { loginUser } from "./loginUserController";
 import CustomError from "../../CustomError/CustomError";
 import user from "../../../database/models/User";
 import errorMessages from "../../utils/errorMessages";
