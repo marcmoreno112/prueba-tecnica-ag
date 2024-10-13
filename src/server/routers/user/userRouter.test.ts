@@ -29,7 +29,7 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-describe("Given a POST 'user/login' endpoint", () => {
+describe(`Given a POST '${paths.user}/${paths.login}' endpoint`, () => {
   describe("When it receives a request with a valid user with username admin and password admin", () => {
     test("Then it should responde with status 200 and a token", async () => {
       const createdUser: DbUser = {
