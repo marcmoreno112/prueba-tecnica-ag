@@ -32,9 +32,21 @@ describe("Given a createUser controller", () => {
         loggedUsername: "admin",
       };
 
-      User.findOne = jest.fn().mockResolvedValue(null);
+      User.findOne = jest.fn().mockImplementation(async (query) => {
+        if (query.username === "admin") {
+          return Promise.resolve({
+            username: newUser.loggedUsername,
+            password: "admin",
+            role: "admin",
+            state: "active",
+          });
+        }
+
+        return Promise.resolve(null);
+      });
 
       const req: Pick<CreateUserRequest, "body"> = { body: newUser };
+
       const expectedUser: UserDataStructure = {
         ...newUser,
         _id: new Types.ObjectId().toString(),
@@ -86,7 +98,10 @@ describe("Given a createUser controller", () => {
         expectedStatus
       );
 
+      User.create = jest.fn();
+
       expect(next).toHaveBeenCalledWith(expectedError);
+      expect(User.create).not.toHaveBeenCalled();
     });
   });
 
@@ -123,7 +138,10 @@ describe("Given a createUser controller", () => {
         expectedStatus
       );
 
+      User.create = jest.fn();
+
       expect(next).toHaveBeenCalledWith(expectedError);
+      expect(User.create).not.toHaveBeenCalled();
     });
   });
 
@@ -140,6 +158,8 @@ describe("Given a createUser controller", () => {
 
       const req: Pick<CreateUserRequest, "body"> = { body: newUser };
 
+      User.create = jest.fn();
+
       await createUser(
         req as CreateUserRequest,
         res as Response,
@@ -147,6 +167,37 @@ describe("Given a createUser controller", () => {
       );
 
       expect(next).toHaveBeenCalledWith(expect.any(Error));
+      expect(User.create).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("When it receives a request without an existing logged user", () => {
+    test("Then it should call the next function with a CustomError", async () => {
+      const newUser: CreateUser = {
+        username: "newUser",
+        password: "admin",
+        role: "admin",
+        loggedUsername: "nonExistentUser",
+      };
+
+      User.findOne = jest.fn().mockResolvedValue(null);
+
+      const req: Pick<CreateUserRequest, "body"> = { body: newUser };
+
+      await createUser(
+        req as CreateUserRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      const expectedStatus = 500;
+
+      const expectedError = new CustomError(
+        errorMessages.general,
+        expectedStatus
+      );
+
+      expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
 });
