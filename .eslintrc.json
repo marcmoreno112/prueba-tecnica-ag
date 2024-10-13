@@ -11,7 +11,15 @@
       "rules": {
         "no-console": "error",
         "no-unused-vars": "error",
-        "@typescript-eslint/consistent-type-definitions": "error"
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "variable",
+            "format": ["camelCase", "PascalCase"]
+          }
+        ],
+        "new-cap": "off"
       }
     }
   ],
