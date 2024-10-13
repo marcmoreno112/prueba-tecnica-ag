@@ -10,9 +10,19 @@ export const createUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { username, password, rol } = req.body;
+  const { username, password, role, loggedUsername } = req.body;
 
   try {
+    const existingLoggedUser = await User.findOne({ username: loggedUsername });
+
+    if (!existingLoggedUser) {
+      const error = new CustomError(errorMessages.general, 500);
+      next(error);
+    } else if (existingLoggedUser.role !== "admin") {
+      const error = new CustomError(errorMessages.unauthorized, 401);
+      next(error);
+    }
+
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       const error = new CustomError(errorMessages.general, 409);
@@ -23,7 +33,7 @@ export const createUser = async (
     const newUser: DbUser = {
       username,
       password: await bcrypt.hash(password, 10),
-      rol,
+      role,
       state: "active",
     };
     const userCreatedAtDb = await User.create(newUser);
