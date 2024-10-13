@@ -25,10 +25,10 @@
     "@types/debug": "^4.1.8",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.1",
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/lint-staged": "^13.2.0",
     "@types/morgan": "^1.9.4",
     "@types/node": "^20.1.2",
-    "@types/jsonwebtoken": "^9.0.2",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.59.5",
     "@typescript-eslint/parser": "^5.59.5",
@@ -47,6 +47,8 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -55,6 +57,8 @@
     "jsonwebtoken": "^9.0.0",
     "mongodb-memory-server": "^8.12.2",
     "mongoose": "^7.2.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }
