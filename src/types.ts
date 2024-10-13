@@ -30,7 +30,7 @@ export type CustomRequest = {
   userId: string;
 } & Request;
 
-export type TestRequest<
+export type AppRequest<
   P = core.ParamsDictionary,
   ResBody = any,
   ReqBody = any,
