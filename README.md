@@ -59,6 +59,8 @@
 
 ## Endpoints
 
+Documentación de endpoints en http://localhost:4000/api-docs
+
 ### **GET /ping**
 
 <br>
