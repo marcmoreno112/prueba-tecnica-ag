@@ -59,6 +59,7 @@ describe("Given a createUser controller", () => {
       });
     });
   });
+
   describe("When it receives a request with an existing user", () => {
     test(`Then it should call the next function with an error with status code 409 and message ${errorMessages.general}`, async () => {
       const inValidUser: CreateUser = {
@@ -88,6 +89,7 @@ describe("Given a createUser controller", () => {
       expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
+
   describe("When it receives a request with a new user created by an user role", () => {
     test(`Then it should call the next function with an error with status code 401 and message ${errorMessages.unauthorized}`, async () => {
       const unauthorizedUser: CreateUser = {
@@ -122,6 +124,29 @@ describe("Given a createUser controller", () => {
       );
 
       expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+
+  describe("When it receives a request and an error occurs", () => {
+    test("Then it should call the next function with the error", async () => {
+      const newUser: CreateUser = {
+        username: "newUser",
+        password: "admin",
+        role: "admin",
+        loggedUsername: "admin",
+      };
+
+      User.findOne = jest.fn().mockRejectedValue(new Error("Database error"));
+
+      const req: Pick<CreateUserRequest, "body"> = { body: newUser };
+
+      await createUser(
+        req as CreateUserRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalledWith(expect.any(Error));
     });
   });
 });
