@@ -12,7 +12,7 @@ export const createUserSchema = {
   body: Joi.object<CreateUser>({
     username: Joi.string().required(),
     password: Joi.string().required(),
-    rol: Joi.string().valid("user", "admin").required(),
+    role: Joi.string().valid("user", "admin").required(),
     loggedUsername: Joi.string().required(),
   }),
 };

@@ -38,7 +38,7 @@ describe("Given a loginUser controller", () => {
         username: validUser.username,
         password:
           "$2y$10$oIlXdXUt5rwSsxm95Sxg/uHPP77viYVgQjWbVc6nH0YbewkmkBepS",
-        rol: "admin",
+        role: "admin",
         state: "active",
       };
 

@@ -8,7 +8,7 @@ export type UserCredentials = {
 };
 
 export type DbUser = {
-  rol: "admin" | "user";
+  role: "admin" | "user";
   state: "active" | "being deleted";
 } & UserCredentials;
 
