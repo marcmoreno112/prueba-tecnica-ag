@@ -17,17 +17,22 @@ export const createUser = async (
 
     if (!existingLoggedUser) {
       const error = new CustomError(errorMessages.general, 500);
-      next(error);
-    } else if (existingLoggedUser.role !== "admin") {
+
+      throw error;
+    }
+
+    if (existingLoggedUser.role !== "admin") {
       const error = new CustomError(errorMessages.unauthorized, 401);
-      next(error);
+
+      throw error;
     }
 
     const existingUser = await User.findOne({ username });
+
     if (existingUser) {
       const error = new CustomError(errorMessages.general, 409);
-      next(error);
-      return;
+
+      throw error;
     }
 
     const newUser: DbUser = {
@@ -36,6 +41,7 @@ export const createUser = async (
       role,
       state: "active",
     };
+
     const userCreatedAtDb = await User.create(newUser);
 
     const returnedUser = { username: userCreatedAtDb.username };
